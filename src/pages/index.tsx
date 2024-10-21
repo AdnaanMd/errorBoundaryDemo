@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-// Fallback UI when an error occurs
-const ErrorFallback = ({ error, resetErrorBoundary }:any) => {
+const ErrorFallback = ({ resetErrorBoundary }:any) => {
   return (
-    <div role="alert">
-      <h2>Something went wrong:</h2>
-      <p>{error.message}</p>
+    <div role="alert" style={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh", flexDirection:"column" }}>
+      <h1>Something went wrong:</h1>
       <button onClick={resetErrorBoundary}>Try again</button>
     </div>
   );
@@ -15,19 +13,17 @@ const ErrorFallback = ({ error, resetErrorBoundary }:any) => {
 const MyComponent = () => {
   const [count, setCount] = useState(0);
 
-  // Simulate error in `componentDidUpdate` equivalent
   useEffect(() => {
-    if (count > 0) {
-      console.log("Component updated (like componentDidUpdate)");
-      throw new Error("Simulated error in componentDidUpdate");
+    if (count > 5) {
+      throw new Error();
     }
   }, [count]);
 
   return (
     <div>
-      <h2>This is a functional component</h2>
+      <h2>Error Boundary Demo</h2>
       <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Update Component</button>
+      <button onClick={() => setCount(count + 1)}>Increase</button>
     </div>
   );
 };
